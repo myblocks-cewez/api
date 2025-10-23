@@ -4,7 +4,7 @@ info:
   title: MyBlocks Rest Services
   description: The following rest services are available for MyBlocks information.
   contact:
-    email: myjob@cewez.be
+    email: ict@cewez.be
   version: 1.0.0
 externalDocs:
   description: Visit the MyBlocks website

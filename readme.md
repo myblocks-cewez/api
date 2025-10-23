@@ -3,4 +3,4 @@ This repository lists all available API's for the MyBlocks application. By click
 
 * [Swagger API's](https://myblocks-cewez.github.io/api/?api=myblocks)
 
-More information about MyBlocks can be found at [www.myblocks.be](http://www.myblocks.be). Information on the OpenAPI specification can be found at [www.openapis.org](https://www.openapis.org/).
+More information about MyBlocks can be found at [myblocks.be](https://myblocks.be). Information on the OpenAPI specification can be found at [www.openapis.org](https://www.openapis.org/).

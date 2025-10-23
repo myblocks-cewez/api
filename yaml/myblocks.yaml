@@ -44,9 +44,9 @@ paths:
         '400':
           $ref: "errors.yaml#/components/responses/BadRequest"
         '401':
-          $ref: "#/components/responses/Unauthorized"
+          $ref: "errors.yaml#/components/responses/Unauthorized"
         '500':
-          $ref: "#/components/responses/InternalError"
+          $ref: "errors.yaml#/components/responses/InternalError"
   /masterdata/v1/{environment}/regime:
     get:
       tags:
@@ -76,11 +76,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/Regime"
         '400':
-          $ref: "#/components/responses/BadRequest"
+          $ref: "errors.yaml#/components/responses/BadRequest"
         '401':
-          $ref: "#/components/responses/Unauthorized"
+          $ref: "errors.yaml#/components/responses/Unauthorized"
         '500':
-          $ref: "#/components/responses/InternalError"
+          $ref: "errors.yaml#/components/responses/InternalError"
   /masterdata/v1/{environment}/statutes:
     get:
       tags:
@@ -108,11 +108,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/Statutes"
         '400':
-          $ref: "#/components/responses/BadRequest"
+          $ref: "errors.yaml#/components/responses/BadRequest"
         '401':
-          $ref: "#/components/responses/Unauthorized"
+          $ref: "errors.yaml#/components/responses/Unauthorized"
         '500':
-          $ref: "#/components/responses/InternalError"
+          $ref: "errors.yaml#/components/responses/InternalError"
   /masterdata/v1/{environment}/statute:
     get:
       tags:
@@ -142,11 +142,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/Statute"
         '400':
-          $ref: "#/components/responses/BadRequest"
+          $ref: "errors.yaml#/components/responses/BadRequest"
         '401':
-          $ref: "#/components/responses/Unauthorized"
+          $ref: "errors.yaml#/components/responses/Unauthorized"
         '500':
-          $ref: "#/components/responses/InternalError"
+          $ref: "errors.yaml#/components/responses/InternalError"
   /masterdata/v1/{environment}/categories:
     get:
       tags:
@@ -208,11 +208,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/Category"
         '400':
-          $ref: "#/components/responses/BadRequest"
+          $ref: "errors.yaml#/components/responses/BadRequest"
         '401':
-          $ref: "#/components/responses/Unauthorized"
+          $ref: "errors.yaml#/components/responses/Unauthorized"
         '500':
-          $ref: "#/components/responses/InternalError"
+          $ref: "errors.yaml#/components/responses/InternalError"
   /masterdata/v1/{environment}/masterfunctions:
     get:
       tags:
@@ -240,11 +240,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/MasterFunctions"
         '400':
-          $ref: "#/components/responses/BadRequest"
+          $ref: "errors.yaml#/components/responses/BadRequest"
         '401':
-          $ref: "#/components/responses/Unauthorized"
+          $ref: "errors.yaml#/components/responses/Unauthorized"
         '500':
-          $ref: "#/components/responses/InternalError"
+          $ref: "errors.yaml#/components/responses/InternalError"
   /masterdata/v1/{environment}/masterfunction:
     get:
       tags:
@@ -274,11 +274,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/MasterFunction"
         '400':
-          $ref: "#/components/responses/BadRequest"
+          $ref: "errors.yaml#/components/responses/BadRequest"
         '401':
-          $ref: "#/components/responses/Unauthorized"
+          $ref: "errors.yaml#/components/responses/Unauthorized"
         '500':
-          $ref: "#/components/responses/InternalError"
+          $ref: "errors.yaml#/components/responses/InternalError"
   /personnel/v1/{environment}/functions:
     get:
       tags:
@@ -306,11 +306,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/Functions"
         '400':
-          $ref: "#/components/responses/BadRequest"
+          $ref: "errors.yaml#/components/responses/BadRequest"
         '401':
-          $ref: "#/components/responses/Unauthorized"
+          $ref: "errors.yaml#/components/responses/Unauthorized"
         '500':
-          $ref: "#/components/responses/InternalError"
+          $ref: "errors.yaml#/components/responses/InternalError"
   /personnel/v1/{environment}/function:
     get:
       tags:
@@ -340,11 +340,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/Function"
         '400':
-          $ref: "#/components/responses/BadRequest"
+          $ref: "errors.yaml#/components/responses/BadRequest"
         '401':
-          $ref: "#/components/responses/Unauthorized"
+          $ref: "errors.yaml#/components/responses/Unauthorized"
         '500':
-          $ref: "#/components/responses/InternalError"
+          $ref: "errors.yaml#/components/responses/InternalError"
   /personnel/v1/{environment}/persons:
     get:
       tags:
@@ -372,11 +372,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/Persons"
         '400':
-          $ref: "#/components/responses/BadRequest"
+          $ref: "errors.yaml#/components/responses/BadRequest"
         '401':
-          $ref: "#/components/responses/Unauthorized"
+          $ref: "errors.yaml#/components/responses/Unauthorized"
         '500':
-          $ref: "#/components/responses/InternalError"
+          $ref: "errors.yaml#/components/responses/InternalError"
   /personnel/v1/{environment}/person:
     get:
       tags:
@@ -413,11 +413,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/Person"
         '400':
-          $ref: "#/components/responses/BadRequest"
+          $ref: "errors.yaml#/components/responses/BadRequest"
         '401':
-          $ref: "#/components/responses/Unauthorized"
+          $ref: "errors.yaml#/components/responses/Unauthorized"
         '500':
-          $ref: "#/components/responses/InternalError"
+          $ref: "errors.yaml#/components/responses/InternalError"
   /personnel/v1/{environment}/unavailabilities:
     get:
       tags:
@@ -463,11 +463,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/Unavailabilities"
         '400':
-          $ref: "#/components/responses/BadRequest"
+          $ref: "errors.yaml#/components/responses/BadRequest"
         '401':
-          $ref: "#/components/responses/Unauthorized"
+          $ref: "errors.yaml#/components/responses/Unauthorized"
         '500':
-          $ref: "#/components/responses/InternalError"
+          $ref: "errors.yaml#/components/responses/InternalError"
   /personnel/v1/{environment}/trainings:
     get:
       tags:
@@ -513,11 +513,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/Trainings"
         '400':
-          $ref: "#/components/responses/BadRequest"
+          $ref: "errors.yaml#/components/responses/BadRequest"
         '401':
-          $ref: "#/components/responses/Unauthorized"
+          $ref: "errors.yaml#/components/responses/Unauthorized"
         '500':
-          $ref: "#/components/responses/InternalError"
+          $ref: "errors.yaml#/components/responses/InternalError"
   /time/v1/{environment}/registration:
     post:
       tags:
@@ -648,11 +648,11 @@ paths:
                         format: int64
                         example: 354728
         '400':
-          $ref: "#/components/responses/BadRequest"
+          $ref: "errors.yaml#/components/responses/BadRequest"
         '401':
-          $ref: "#/components/responses/Unauthorized"
+          $ref: "errors.yaml#/components/responses/Unauthorized"
         '500':
-          $ref: "#/components/responses/InternalError"
+          $ref: "errors.yaml#/components/responses/InternalError"
   /salary/v1/{environment}/groups:
     get:
       tags:
@@ -680,11 +680,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/SalaryGroups"
         '400':
-          $ref: "#/components/responses/BadRequest"
+          $ref: "errors.yaml#/components/responses/BadRequest"
         '401':
-          $ref: "#/components/responses/Unauthorized"
+          $ref: "errors.yaml#/components/responses/Unauthorized"
         '500':
-          $ref: "#/components/responses/InternalError"
+          $ref: "errors.yaml#/components/responses/InternalError"
   /salary/v1/{environment}/group:
     get:
       tags:
@@ -714,11 +714,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/SalaryGroup"
         '400':
-          $ref: "#/components/responses/BadRequest"
+          $ref: "errors.yaml#/components/responses/BadRequest"
         '401':
-          $ref: "#/components/responses/Unauthorized"
+          $ref: "errors.yaml#/components/responses/Unauthorized"
         '500':
-          $ref: "#/components/responses/InternalError"
+          $ref: "errors.yaml#/components/responses/InternalError"
   /salary/v1/{environment}/baremas:
     get:
       tags:
@@ -746,11 +746,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/Baremas"
         '400':
-          $ref: "#/components/responses/BadRequest"
+          $ref: "errors.yaml#/components/responses/BadRequest"
         '401':
-          $ref: "#/components/responses/Unauthorized"
+          $ref: "errors.yaml#/components/responses/Unauthorized"
         '500':
-          $ref: "#/components/responses/InternalError"
+          $ref: "errors.yaml#/components/responses/InternalError"
   /salary/v1/{environment}/barema:
     get:
       tags:
@@ -780,11 +780,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/Barema"
         '400':
-          $ref: "#/components/responses/BadRequest"
+          $ref: "errors.yaml#/components/responses/BadRequest"
         '401':
-          $ref: "#/components/responses/Unauthorized"
+          $ref: "errors.yaml#/components/responses/Unauthorized"
         '500':
-          $ref: "#/components/responses/InternalError"
+          $ref: "errors.yaml#/components/responses/InternalError"
   /salary/v1/{environment}/barema/{baremaid}/rates:
     get:
       tags:
@@ -822,11 +822,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/BaremaRates"
         '400':
-          $ref: "#/components/responses/BadRequest"
+          $ref: "errors.yaml#/components/responses/BadRequest"
         '401':
-          $ref: "#/components/responses/Unauthorized"
+          $ref: "errors.yaml#/components/responses/Unauthorized"
         '500':
-          $ref: "#/components/responses/InternalError"
+          $ref: "errors.yaml#/components/responses/InternalError"
 components:
   securitySchemes:
     oAuth2ClientCredentials:

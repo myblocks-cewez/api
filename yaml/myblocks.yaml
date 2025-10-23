@@ -42,7 +42,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Regimes"
         '400':
-          $ref: "#/components/responses/BadRequest"
+          $ref: "errors.yaml#/components/responses/BadRequest"
         '401':
           $ref: "#/components/responses/Unauthorized"
         '500':

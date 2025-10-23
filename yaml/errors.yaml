@@ -1,0 +1,71 @@
+---
+openapi: 3.0.1
+info:
+  title: Generic Error
+  description: Generic error components used in other swagger files.
+  version: 1.0.0
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        errorCode:
+          description: error code
+          type: string
+          maxLength: 50
+          example: "911"
+        errorMessage:
+          description: error message
+          type: string
+          maxLength: 2000
+          example: "Seems like you hit a pothole in the road."
+  examples:
+    MissingParameter:
+      summary: Missing Parameter
+      value:
+        errorCode: "PARAMETER.MISSING"
+        errorMessage: "A required input parameter is missing in your request. Please consult the web service documentation."
+    InvalidParameter:
+      summary: Invalid Parameter
+      value:
+        errorCode: "PARAMETER.INVALID"
+        errorMessage: "The value for a passed-in parameter is invalid. Please consult the web service documentation."
+    MissingData:
+      summary: Missing Data
+      value:
+        errorCode: "NO.DATA.FOUND"
+        errorMessage: "No data was found for your selection. Please try again with another selection."
+    ApplicationError:
+      summary: Application Error
+      value:
+        errorCode: "911"
+        errorMessage: "Seems like you hit a pothole on your journey."
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - type: array
+                items:
+                  $ref: "#/components/schemas/Error"
+              - $ref: "#/components/schemas/Error"
+          examples:
+            MissingParameter:
+              $ref: "#/components/examples/MissingParameter"
+            InvalidParameter:
+              $ref: "#/components/examples/InvalidParameter"
+            MissingData:
+              $ref: "#/components/examples/MissingData"
+    Unauthorized:
+      description: Unauthorized
+    InternalError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          examples:
+            ApplicationError:
+              $ref: "#/components/examples/ApplicationError"

@@ -1,0 +1,910 @@
+---
+openapi: 3.0.1
+info:
+  title: Cepa Rest Services
+  description: The following rest services are available for Cepa interaction through MyBlocks. These api's are managed by Cepa.
+  contact:
+    email: ict@cewez.be
+  version: 1.8.0
+externalDocs:
+  description: Visit the MyBlocks website
+  url: https://myblocks.be/
+servers:
+  - url: https://blocks-uat.cewez.be/ords/blocks/cepa
+    description: Cepa UAT Environment
+security:
+  - oAuth2ClientCredentials: []
+paths:
+  /{environment}/pers-timetables:
+    post:
+      tags:
+        - Personnel
+      summary: Add timetable
+      description: Used to add a person to the company's timetable.
+      operationId: createTimetable
+      parameters:
+        - name: environment
+          in: path
+          description: Environment ID
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimetableRequest'
+        required: true
+      responses:
+        '201':
+          description: Created
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '409':
+          $ref: "#/components/responses/Conflict"
+        '500':
+          $ref: "#/components/responses/InternalServerError"
+  /{environment}/afwezigheidsaanvragen-tt:
+    post:
+      tags:
+        - Personnel
+      summary: Create unavailability request
+      description: Post an anavailability request for a time table person.
+      operationId: createUnavailability
+      parameters:
+        - name: environment
+          in: path
+          description: Environment ID
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UnavailabilityRequest'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Unavailability'
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '409':
+          $ref: "#/components/responses/Conflict"
+        '500':
+          $ref: "#/components/responses/InternalServerError"
+    get:
+      tags:
+        - Personnel
+      summary: List unavailabilities
+      description: Retrieve all unavailabilities for a given set of parameters (paged).
+      operationId: getUnavailabilities
+      parameters:
+        - name: environment
+          in: path
+          description: Environment ID
+          required: true
+          schema:
+            type: string
+        - name: firma
+          in: query
+          description: company number
+          required: true
+          schema:
+            type: integer
+            format: int64
+            example: 508
+        - name: updatedate
+          in: query
+          description: last modified date (defaults to current date if left blank)
+          schema:
+            type: string
+            format: date
+            example: "2025-02-14"
+        - name: p
+          in: query
+          description: page of paged results
+          schema:
+            type: integer
+            format: int64
+            example: 0
+        - name: s
+          in: query
+          description: page size of paged results
+          schema:
+            type: integer
+            format: int64
+            example: 25
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Unavailabilities'
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '409':
+          $ref: "#/components/responses/Conflict"
+        '500':
+          $ref: "#/components/responses/InternalServerError"
+  /{environment}/afwezigheidsaanvragen-tt/{uuid}/goedkeuren:
+    put:
+      tags:
+        - Personnel
+      summary: Approve unavailability request
+      description: Approves an unavailability request.
+      operationId: approveUnavailability
+      parameters:
+        - name: environment
+          in: path
+          description: Environment ID
+          required: true
+          schema:
+            type: string
+        - name: uuid
+          in: path
+          description: unique unavailability identifier
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '409':
+          $ref: "#/components/responses/Conflict"
+        '500':
+          $ref: "#/components/responses/InternalServerError"
+  /{environment}/afwezigheidsaanvragen-tt/{uuid}/weigeren:
+    put:
+      tags:
+        - Personnel
+      summary: Reject unavailability request
+      description: Rejects an unavailability request providing a reason for the reject.
+      operationId: refuseUnavailability
+      parameters:
+        - name: environment
+          in: path
+          description: Environment ID
+          required: true
+          schema:
+            type: string
+        - name: uuid
+          in: path
+          description: unique unavailability identifier
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                redenWeigeringFirma:
+                  type: string
+        required: true
+      responses:
+        '200':
+          description: Success
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '409':
+          $ref: "#/components/responses/Conflict"
+        '500':
+          $ref: "#/components/responses/InternalServerError"
+  /{environment}/tr-tikking-interpret:
+    get:
+      tags:
+        - Time Registrations
+      operationId: getTickings
+      parameters:
+        - name: environment
+          in: path
+          description: Environment ID
+          required: true
+          schema:
+            type: string
+        - name: firma
+          in: query
+          description: company number
+          required: true
+          schema:
+            type: integer
+            format: int64
+            example: 508
+        - name: datumVan
+          in: query
+          description: start date
+          schema:
+            type: string
+            format: date
+            example: "2025-02-14"
+        - name: datumtot
+          in: query
+          description: end date
+          schema:
+            type: string
+            format: date
+            example: "2025-02-14"
+        - name: p
+          in: query
+          description: page offset of paged results
+          schema:
+            type: integer
+            format: int64
+            example: 0
+        - name: s
+          in: query
+          description: page size of paged results
+          schema:
+            type: integer
+            format: int64
+            example: 25
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Tickings'
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '409':
+          $ref: "#/components/responses/Conflict"
+        '500':
+          $ref: "#/components/responses/InternalServerError"
+  /{environment}/tikkingen-in:
+    post:
+      tags:
+        - Time Registrations
+      summary: Upload ticking data
+      description: Must be used to pass ticking information in case the company uses its own clocks not integrated with Cewez.
+      operationId: createTikkingenIn
+      parameters:
+        - name: environment
+          in: path
+          description: Environment ID
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TickingRequest'
+        required: true
+      responses:
+        '201':
+          description: Created
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '409':
+          $ref: "#/components/responses/Conflict"
+        '500':
+          $ref: "#/components/responses/InternalServerError"
+  /{environment}/borderels:
+    post:
+      tags:
+        - Payment
+      operationId: createBorderel
+      summary: Send salary file
+      description: Sends a salary file and corresponding docket to Cepa.
+      parameters:
+        - name: environment
+          in: path
+          description: Environment ID
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+                - data
+                - file
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/Borderel'
+                file:
+                  description: salary file
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: Created
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '409':
+          $ref: "#/components/responses/Conflict"
+        '500':
+          $ref: "#/components/responses/InternalServerError"
+components:
+  securitySchemes:
+    oAuth2ClientCredentials:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: /oauth/token
+          scopes: {}
+  schemas:
+    Borderel:
+      description: salary file docket
+      type: object
+      required:
+        - firma
+        - dept
+        - datum
+        - borderelnr
+        - aantalDetail
+        - totaalWerkboek
+        - totaalBedrag
+        - aantalOveruren
+        - totaalKledij
+      properties:
+        firma:
+          description: company identification number
+          type: integer
+          format: int64
+          example: 508
+        dept:
+          description: department number
+          type: integer
+          format: int64
+          example: 0
+        datum:
+          description: date
+          type: string
+          format: date
+          example: "15/11/2024"
+        borderelnr:
+          description: docket number
+          type: integer
+          format: int64
+          example: 1
+        aantalDetail:
+          description: count of lines in salary file
+          type: integer
+          format: int64
+          example: 16
+        totaalWerkboek:
+          description: sum of workbook numbers in salary file
+          type: integer
+          format: int64
+          example: 32544
+        totaalBedrag:
+          description: sum of salary amounts in salary file
+          type: number
+          example: 3201.30
+        aantalOveruren:
+          description: sum of overtime hours in salary file
+          type: integer
+          format: int64
+          example: 8
+        totaalKledij:
+          description: sum of clothing allowances in salary file
+          type: number
+          example: 3201.30
+    TickingRequest:
+      description: ticking item for posting data
+      type: object
+      required:
+        - werkboek
+        - firma
+        - effectiefIn
+        - soortEffectiefIn
+        - afgeleidIn
+        - soortAfgeleidIn
+        - locatieIn
+        - soortVerwerking
+      properties:
+        werkboek:
+          description: workbook number
+          type: integer
+          format: int64
+          example: 48
+        firma:
+          description: company identification number
+          type: integer
+          format: int64
+          example: 508
+        effectiefIn:
+          description: registered incoming timestamp
+          type: string
+          pattern: dd/MM/yyyy HH:mm:ss
+          example: "14/02/2025 07:35:15"
+        soortEffectiefIn:
+          description: R = Registratie, M = Manueel
+          type: string
+          enum:
+            - "R"
+            - "M"
+          example: "R"
+        afgeleidIn:
+          description: corrected incoming timestamp
+          type: string
+          pattern: dd/MM/yyyy HH:mm:ss
+          example: "14/02/2025 08:00:00"
+        soortAfgeleidIn:
+          description: R = Registratie, M = Manueel
+          type: string
+          enum:
+            - "R"
+            - "M"
+          example: "R"
+        locatieIn:
+          maxLength: 50
+          type: string
+          example: "Front Gate"
+        effectiefUit:
+          description: registered outgoing timestamp
+          type: string
+          pattern: dd/MM/yyyy HH:mm:ss
+          example: "14/02/2025 15:48:00"
+        soortEffectiefUit:
+          description: R = Registratie, M = Manueel
+          type: string
+          enum:
+            - "R"
+            - "M"
+          example: "R"
+        afgeleidUit:
+          description: corrected outgoing timestamp
+          type: string
+          pattern: dd/MM/yyyy HH:mm:ss
+          example: "14/02/2025 15:45:00"
+        soortAfgeleidUit:
+          description: R = Registratie, M = Manueel
+          type: string
+          enum:
+            - "R"
+            - "M"
+          example: "R"
+        locatieUit:
+          description: Outgoing location
+          type: string
+          maxLength: 50
+          example: "Front Gate"
+        soortVerwerking:
+          description: N = Nieuw, U = Update, D = Delete
+          type: string
+          enum:
+            - "N"
+            - "U"
+            - "D"
+          example: "N"
+    Ticking:
+      description: ticking item
+      type: object
+      properties:
+        id:
+          description: unique ticking identifier
+          type: string
+          example: "506000065250000000121"
+        firma:
+          description: company identification number
+          type: integer
+          format: int64
+          example: 508
+        werkboek:
+          description: workbook number
+          type: integer
+          format: int64
+          example: 48
+        naam:
+          description: person's last name
+          type: string
+          example: "Yankee"
+        voornaam:
+          description: person's first name
+          type: string
+          example: "Doodle"
+        effectiefIn:
+          description: registered incoming timestamp
+          type: string
+          pattern: dd/MM/yyyy HH:mm:ss
+          example: "14/02/2025 07:35:15"
+        afgeleidIn:
+          description: corrected incoming timestamp
+          type: string
+          pattern: dd/MM/yyyy HH:mm:ss
+          example: "14/02/2025 08:00:00"
+        effectiefUit:
+          description: registered outgoing timestamp
+          type: string
+          pattern: dd/MM/yyyy HH:mm:ss
+          example: "14/02/2025 15:48:00"
+        afgeleideUit:
+          description: corrected outgoing timestamp
+          type: string
+          pattern: dd/MM/yyyy HH:mm:ss
+          example: "14/02/2025 15:45:00"
+    Tickings:
+      description: tickings list page
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Ticking'
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        totalPages:
+          description: total number of pages
+          type: integer
+          format: int32
+          example: 11
+        totalElements:
+          description: total number of content items
+          type: integer
+          format: int64
+          example: 255
+        size:
+          description: page size
+          type: integer
+          format: int32
+          example: 25
+        number:
+          description: page number
+          type: integer
+          format: int32
+          example: 0
+        sort:
+          $ref: '#/components/schemas/SortObject'
+        first:
+          description: first page
+          type: boolean
+          example: true
+        last:
+          description: last page
+          type: boolean
+          example: false
+        numberOfElements:
+          description: number of content items on current page
+          type: integer
+          format: int32
+          example: 25
+        empty:
+          type: boolean
+          example: false
+    TimetableRequest:
+      description: timetable request
+      type: object
+      required:
+        - werkboek
+        - firma
+        - dept
+        - datumVan
+      properties:
+        werkboek:
+          description: workbook number
+          type: integer
+          format: int64
+          example: 48
+        firma:
+          description: company identification number
+          type: integer
+          format: int64
+          example: 508
+        dept:
+          description: department number
+          type: integer
+          format: int64
+          example: 0
+        datumVan:
+          description: time table start date
+          type: string
+          pattern: dd/MM/yyyy
+          example: "01/03/2025"
+        datumTot:
+          description: time table end date
+          type: string
+          pattern: dd/MM/yyyy
+          example: "31/12/2025"
+    UnavailabilityRequest:
+      description: unavailability request
+      type: object
+      required:
+        - werkboek
+        - soortAfwezigheid
+        - firmaTt
+        - periodeVan
+        - periodeTot
+      properties:
+        werkboek:
+          description: workbook number
+          type: integer
+          format: int64
+          example: 48
+        soortAfwezigheid:
+          description: unavailability code
+          type: string
+          example: "BV"
+        firmaTt:
+          description: company identification number
+          type: integer
+          format: int64
+          example: 508
+        periodeVan:
+          description: unavailability start date
+          type: string
+          pattern: dd/MM/yyyy
+          example: "17/02/2025"
+        periodeTot:
+          description: unavailability end date
+          type: string
+          pattern: dd/MM/yyyy
+          example: "18/02/2025"
+        naamFirmaGoedkeurder:
+          description: name approver
+          type: string
+          example: "Yankee Doodle"
+    Unavailability:
+      description: unavailability response
+      type: object
+      properties:
+        id:
+          description: unique unavailability id
+          type: integer
+          format: int64
+          example: 32453
+        actie:
+          type: string
+          enum:
+            - "I"
+            - "D"
+        werkboek:
+          description: workbook number
+          type: integer
+          format: int64
+          example: 48
+        soortAfwezigheid:
+          description: unavailability code
+          type: string
+          example: "BV"
+        firmaTt:
+          description: company identification number
+          type: integer
+          format: int64
+          example: 508
+        oorsprongAanvraag:
+          description: source of the request (C = Cewez, F = Firma)
+          type: string
+          enum:
+            - "C"
+            - "F"
+          example: "F"
+        tijdstipAanvraag:
+          description: request timestamp
+          type: string
+          format: date-time
+          example: "2025-02-03T15:33:22.272Z"
+        periodeVan:
+          description: unavailability start date
+          type: string
+          format: date
+          example: "17/02/2025"
+        periodeTot:
+          description: unavailability end date
+          type: string
+          format: date
+          example: "18/02/2025"
+        opmerkingHavenarbeider:
+          description: comment request
+          type: string
+        statusAanvraagFirma:
+          description: status request company
+          type: string
+          enum:
+            - "F"
+            - "W"
+            - "G"
+            - "O"
+        redenWeigeringFirma:
+          description: comment refusal company
+          type: string
+        naamFirmaGoedkeurder:
+          description: name approver
+          type: string
+        tijdstipFeedback:
+          description: feedback timestamp
+          type: string
+          format: date-time
+        statusAanvraagCewez:
+          description: status request Cewez
+          type: string
+          enum:
+            - "F"
+            - "G"
+            - "I"
+            - "N"
+            - "R"
+            - "V"
+        redenWeigeringCewez:
+          description: comment refusal Cewez
+          type: string
+        tijdstipVerwerkingCewez:
+          description: processing timestamp
+          type: string
+          format: date-time
+        uuid:
+          description: unique unavailability identifier
+          type: string
+        gebruikerInsert:
+          type: string
+        datumInsert:
+          type: string
+          format: date-time
+        gebruikerUpdate:
+          type: string
+        datumUpdate:
+          type: string
+          format: date-time
+    Unavailabilities:
+      description: unavailabilities list page
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Unavailability'
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        totalPages:
+          description: total number of pages
+          type: integer
+          format: int32
+          example: 11
+        totalElements:
+          description: total number of content items
+          type: integer
+          format: int64
+          example: 255
+        size:
+          description: page size
+          type: integer
+          format: int32
+          example: 25
+        number:
+          description: page number
+          type: integer
+          format: int32
+          example: 0
+        sort:
+          $ref: '#/components/schemas/SortObject'
+        first:
+          description: first page
+          type: boolean
+          example: true
+        last:
+          description: last page
+          type: boolean
+          example: false
+        numberOfElements:
+          description: number of content items on current page
+          type: integer
+          format: int32
+          example: 25
+        empty:
+          type: boolean
+          example: false
+    PageableObject:
+      type: object
+      properties:
+        offset:
+          type: integer
+          format: int64
+          example: 0
+        sort:
+          $ref: '#/components/schemas/SortObject'
+        pageNumber:
+          type: integer
+          format: int32
+          example: 0
+        pageSize:
+          type: integer
+          format: int32
+          example: 25
+        paged:
+          type: boolean
+          example: true
+        unpaged:
+          type: boolean
+          example: false
+    SortObject:
+      type: object
+      properties:
+        empty:
+          type: boolean
+          example: false
+        sorted:
+          type: boolean
+          example: true
+        unsorted:
+          type: boolean
+          example: false
+    Error:
+      description: pass-through for Cepa general error
+      type: object
+      properties:
+        message:
+          description: error message
+          type: string
+        detail:
+          description: error detail
+          type: string
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        "*/*":
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/Error"
+    Unauthorized:
+      description: Unauthorized
+    NotFound:
+      description: Not Found
+      content:
+        "*/*":
+          schema:
+            $ref: "#/components/schemas/Error"
+    Conflict:
+      description: Conflict
+      content:
+        "*/*":
+          schema:
+            oneOf:
+              - type: array
+                items:
+                  $ref: "#/components/schemas/Error"
+              - $ref: "#/components/schemas/Error"
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        "*/*":
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/Error"

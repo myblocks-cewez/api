@@ -1,0 +1,1814 @@
+---
+openapi: 3.0.1
+info:
+  title: MyBlocks Rest Services
+  description: The following rest services are available for MyBlocks information.
+  contact:
+    email: myjob@cewez.be
+  version: 1.0.0
+externalDocs:
+  description: Visit the MyBlocks website
+  url: https://myblocks.be/
+servers:
+  - url: https://blocks-uat.cewez.be/ords/blocks
+    description: Cewez UAT Environment
+security:
+  - oAuth2ClientCredentials: []
+paths:
+  /masterdata/v1/{environment}/regimes:
+    get:
+      tags:
+        - Master Data
+      summary: List all work regimes within the environment.
+      description: Lists all available work regimes within the specified environment. An optional search string can be passed to filter the array.
+      operationId: getRegimes
+      parameters:
+        - name: environment
+          in: path
+          description: Environment ID
+          required: true
+          schema:
+            type: string
+        - name: search
+          in: query
+          description: Search String
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Regimes"
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '500':
+          $ref: "#/components/responses/InternalError"
+  /masterdata/v1/{environment}/regime:
+    get:
+      tags:
+        - Master Data
+      summary: Get a single work regime.
+      description: Retrieve the detailed information of a work regime.
+      operationId: getRegime
+      parameters:
+        - name: environment
+          in: path
+          description: Environment ID
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: query
+          description: Work Regime ID
+          required: true
+          schema:
+            type: string
+          example: "FT"
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Regime"
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '500':
+          $ref: "#/components/responses/InternalError"
+  /masterdata/v1/{environment}/statutes:
+    get:
+      tags:
+        - Master Data
+      summary: List all statutes within the environment.
+      description: Lists all available statutes within the specified environment. An optional search string can be passed to filter the array.
+      operationId: getStatutes
+      parameters:
+        - name: environment
+          in: path
+          description: Environment ID
+          required: true
+          schema:
+            type: string
+        - name: search
+          in: query
+          description: Search String
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Statutes"
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '500':
+          $ref: "#/components/responses/InternalError"
+  /masterdata/v1/{environment}/statute:
+    get:
+      tags:
+        - Master Data
+      summary: Get a single statute.
+      description: Retrieve the detailed information of a statute.
+      operationId: getStatute
+      parameters:
+        - name: environment
+          in: path
+          description: Environment ID
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: query
+          description: Statute ID
+          required: true
+          schema:
+            type: string
+          example: "TT"
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Statute"
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '500':
+          $ref: "#/components/responses/InternalError"
+  /masterdata/v1/{environment}/categories:
+    get:
+      tags:
+        - Master Data
+      summary: List all categories within the environment.
+      description: Lists all available categories within the specified environment. An optional search string can be passed to filter the array.
+      operationId: getCategories
+      parameters:
+        - name: environment
+          in: path
+          description: Environment ID
+          required: true
+          schema:
+            type: string
+        - name: search
+          in: query
+          description: Search String
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Categories"
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '500':
+          $ref: "#/components/responses/InternalError"
+  /masterdata/v1/{environment}/category:
+    get:
+      tags:
+        - Master Data
+      summary: Get a single category.
+      description: Retrieve the detailed information of a category.
+      operationId: getCategory
+      parameters:
+        - name: environment
+          in: path
+          description: Environment ID
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: query
+          description: Category ID
+          required: true
+          schema:
+            type: string
+          example: "rang"
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Category"
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '500':
+          $ref: "#/components/responses/InternalError"
+  /masterdata/v1/{environment}/masterfunctions:
+    get:
+      tags:
+        - Master Data
+      summary: List all master functions within the environment.
+      description: Lists all available master functions within the specified environment. An optional search string can be passed to filter the array.
+      operationId: getMasterFunctions
+      parameters:
+        - name: environment
+          in: path
+          description: Environment ID
+          required: true
+          schema:
+            type: string
+        - name: search
+          in: query
+          description: Search String
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MasterFunctions"
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '500':
+          $ref: "#/components/responses/InternalError"
+  /masterdata/v1/{environment}/masterfunction:
+    get:
+      tags:
+        - Master Data
+      summary: Get a single master function.
+      description: Retrieve the detailed information of a master function.
+      operationId: getMasterFunction
+      parameters:
+        - name: environment
+          in: path
+          description: Environment ID
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: query
+          description: Master Function ID
+          required: true
+          schema:
+            type: string
+          example: "werk"
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MasterFunction"
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '500':
+          $ref: "#/components/responses/InternalError"
+  /personnel/v1/{environment}/functions:
+    get:
+      tags:
+        - Personnel
+      summary: List all functions within the environment.
+      description: Lists all available functions within the specified environment. An optional search string can be passed to filter the array.
+      operationId: getFunctions
+      parameters:
+        - name: environment
+          in: path
+          description: Environment ID
+          required: true
+          schema:
+            type: string
+        - name: search
+          in: query
+          description: Search String
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Functions"
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '500':
+          $ref: "#/components/responses/InternalError"
+  /personnel/v1/{environment}/function:
+    get:
+      tags:
+        - Personnel
+      summary: Get a single function.
+      description: Retrieve the detailed information of a function.
+      operationId: getFunction
+      parameters:
+        - name: environment
+          in: path
+          description: Environment ID
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: query
+          description: Function ID
+          required: true
+          schema:
+            type: string
+          example: "FM"
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Function"
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '500':
+          $ref: "#/components/responses/InternalError"
+  /personnel/v1/{environment}/persons:
+    get:
+      tags:
+        - Personnel
+      summary: List all personnel within the environment.
+      description: Lists all available personnel within the specified environment. An optional search string can be passed to filter the array.
+      operationId: getPersons
+      parameters:
+        - name: environment
+          in: path
+          description: Environment ID
+          required: true
+          schema:
+            type: string
+        - name: search
+          in: query
+          description: Search String
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Persons"
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '500':
+          $ref: "#/components/responses/InternalError"
+  /personnel/v1/{environment}/person:
+    get:
+      tags:
+        - Personnel
+      summary: Get a single person.
+      description: Retrieve the detailed information of a person.
+      operationId: getPerson
+      parameters:
+        - name: environment
+          in: path
+          description: Environment ID
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: query
+          description: Person ID
+          required: true
+          schema:
+            type: string
+          example: "000007"
+        - name: ctrl
+          in: query
+          description: Person Control Number
+          required: true
+          schema:
+            type: string
+          example: "07"
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Person"
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '500':
+          $ref: "#/components/responses/InternalError"
+  /personnel/v1/{environment}/unavailabilities:
+    get:
+      tags:
+        - Personnel
+      summary: List unavailabilities within the environment.
+      description: Lists all unavailabilities within the specified environment. Optional parameters can be passed to filter the array.
+      operationId: getUnavailabilities
+      parameters:
+        - name: environment
+          in: path
+          description: Environment ID
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: query
+          description: workbook number
+          schema:
+            type: string
+        - name: starttimestamp
+          in: query
+          description: list only unavailabilities where the start is greater than this passed-in starttimestamp
+          schema:
+            type: string
+            format: date-time
+        - name: endtimestamp
+          in: query
+          description: list only unavailabilities where the start is smaller than this passed-in endtimestamp
+          schema:
+            type: string
+            format: date-time
+        - name: lastmodified
+          in: query
+          description: list only unavailabilities where the last modification is greater than this passed-in lastmodified
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Unavailabilities"
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '500':
+          $ref: "#/components/responses/InternalError"
+  /personnel/v1/{environment}/trainings:
+    get:
+      tags:
+        - Personnel
+      summary: List training sessions within the environment.
+      description: Lists all training sessions within the specified environment. Optional parameters can be passed to filter the array.
+      operationId: getTrainings
+      parameters:
+        - name: environment
+          in: path
+          description: Environment ID
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: query
+          description: workbook number
+          schema:
+            type: string
+        - name: startdate
+          in: query
+          description: list only trainign sessions where the start date is greater than this passed-in startdate
+          schema:
+            type: string
+            format: date
+        - name: enddate
+          in: query
+          description: list only training sessions where the start date is smaller than this passed-in enddate
+          schema:
+            type: string
+            format: date
+        - name: lastmodified
+          in: query
+          description: list only unavailabilities where the last modification is greater than this passed-in lastmodified
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Trainings"
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '500':
+          $ref: "#/components/responses/InternalError"
+  /time/v1/{environment}/registration:
+    post:
+      tags:
+        - Time
+      summary: Post a time registration.
+      description: Adds a time registration for a shift providing a person, his category and performed function as well as incoming and outgoing timestamps (registered and corrected). The corrected timestamps are used for the salary calculation.
+      operationId: postTimeRegistration
+      parameters:
+        - name: environment
+          in: path
+          description: Environment ID
+          required: true
+          schema:
+            type: string
+        - name: shift
+          in: query
+          description: Shift Start Timestamp (ISO 8601)
+          required: true
+          schema:
+            type: string
+            format: date-time
+          example: "2025-02-18T07:00:00Z"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - person
+                - category
+                - function
+                - in
+                - out
+              properties:
+                person:
+                  type: object
+                  required:
+                    - id
+                    - ctrl
+                  properties:
+                    id:
+                      description: workbook number
+                      type: string
+                      minLength: 6
+                      maxLength: 6
+                      example: "000352"
+                    ctrl:
+                      description: control digit (modulo 97)
+                      type: string
+                      minLength: 2
+                      maxLength: 2
+                      example: "61"
+                category:
+                  type: object
+                  required:
+                    - id
+                  properties:
+                    id:
+                      description: category id
+                      type: string
+                      minLength: 4
+                      maxLength: 4
+                      example: "0010"
+                function:
+                  type: object
+                  required:
+                    - id
+                  properties:
+                    id:
+                      description: company function id 
+                      type: string
+                      maxLength: 10
+                      example: "FM"
+                in:
+                  type: object
+                  required:
+                    - corrected
+                  properties:
+                    registered:
+                      description: registered incoming timestamp (ISO 8601)
+                      type: string
+                      format: date-time
+                      example: "2025-02-18T06:47:33Z"
+                    corrected:
+                      description: corrected incoming timestamp (ISO 8601)
+                      type: string
+                      format: date-time
+                      example: "2025-02-18T07:00:00Z"
+                out:
+                  type: object
+                  required:
+                    - corrected
+                  properties:
+                    registered:
+                      description: registered outgoing timestamp (ISO 8601)
+                      type: string
+                      format: date-time
+                      example: "2025-02-18T14:37:11Z"
+                    corrected:
+                      description: corrected outgoing timestamp (ISO 8601)
+                      type: string
+                      format: date-time
+                      example: "2025-02-18T14:45:00Z"
+                halfshift:
+                  description: is this a time registration for a half shift
+                  type: boolean
+                  default: false
+                  example: false
+                verified:
+                  description: may this time registration be marked as verified
+                  type: boolean
+                  default: false
+                  example: true
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  time:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        format: int64
+                        example: 354728
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '500':
+          $ref: "#/components/responses/InternalError"
+  /salary/v1/{environment}/groups:
+    get:
+      tags:
+        - Salaries
+      summary: List all salary groups within the environment.
+      description: Lists all available salary groups within the specified environment. An optional search string can be passed to filter the array.
+      operationId: getSalaryGroups
+      parameters:
+        - name: environment
+          in: path
+          description: Environment ID
+          required: true
+          schema:
+            type: string
+        - name: search
+          in: query
+          description: Search String
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SalaryGroups"
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '500':
+          $ref: "#/components/responses/InternalError"
+  /salary/v1/{environment}/group:
+    get:
+      tags:
+        - Salaries
+      summary: Get a single salary group.
+      description: Retrieve the detailed information of a salary group.
+      operationId: getSalaryGroup
+      parameters:
+        - name: environment
+          in: path
+          description: Environment ID
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: query
+          description: Salary Group ID
+          required: true
+          schema:
+            type: integer
+          example: 2
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SalaryGroup"
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '500':
+          $ref: "#/components/responses/InternalError"
+  /salary/v1/{environment}/baremas:
+    get:
+      tags:
+        - Salaries
+      summary: List all baremas within the environment.
+      description: Lists all available baremas within the specified environment. An optional search string can be passed to filter the array.
+      operationId: getBaremas
+      parameters:
+        - name: environment
+          in: path
+          description: Environment ID
+          required: true
+          schema:
+            type: string
+        - name: search
+          in: query
+          description: Search String
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Baremas"
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '500':
+          $ref: "#/components/responses/InternalError"
+  /salary/v1/{environment}/barema:
+    get:
+      tags:
+        - Salaries
+      summary: Get a single barema.
+      description: Retrieve the detailed information of a barema.
+      operationId: getBarema
+      parameters:
+        - name: environment
+          in: path
+          description: Environment ID
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: query
+          description: Barema ID
+          required: true
+          schema:
+            type: string
+          example: "FS"
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Barema"
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '500':
+          $ref: "#/components/responses/InternalError"
+  /salary/v1/{environment}/barema/{baremaid}/rates:
+    get:
+      tags:
+        - Salaries
+      summary: Get the rates for a barema.
+      description: Retrieve the rates for a barema applicable for a certain date and time.
+      operationId: getBaremaRates
+      parameters:
+        - name: environment
+          in: path
+          description: Environment ID
+          required: true
+          schema:
+            type: string
+        - name: baremaid
+          in: path
+          description: Barema ID
+          required: true
+          schema:
+            type: string
+          example: "FS"
+        - name: requesttimestamp
+          in: query
+          description: Timestamp
+          required: true
+          schema:
+            type: string
+            format: date-time
+          example: "2022-12-01T08:00:00Z"
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BaremaRates"
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '500':
+          $ref: "#/components/responses/InternalError"
+components:
+  securitySchemes:
+    oAuth2ClientCredentials:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: /oauth/token
+          scopes: {}
+  schemas:
+    Regimes:
+      type: object
+      description: list of work regime items
+      properties:
+        regimes:
+          type: array
+          items:
+            $ref: "#/components/schemas/Regime"
+          example:
+            - { "id": "FT", "name": "Full Time", "links": [{ "rel": "self", "href": "{base}/masterdata/v1/{environment}/regime?id=FT"}] }
+            - { "id": "PT", "name": "Part Time", "links": [{ "rel": "self", "href": "{base}/masterdata/v1/{environment}/regime?id=PT"}] }
+    Regime:
+      type: object
+      description: work regime item
+      required:
+        - id
+      properties:
+        id:
+          description: work regime id
+          type: string
+          maxLength: 4
+          nullable: false
+          example: "FT"
+        name:
+          description: work regime name
+          type: string
+          maxLength: 50
+          example: "Full Time"
+        description:
+          description: work regime description
+          type: string
+          example: null
+        isDefault:
+          description: default work regime within environment
+          type: boolean
+          example: false
+        isActive:
+          type: boolean
+          example: true
+        created:
+          type: string
+          format: date-time
+          example: "2023-05-31T15:58:45.915080Z"
+        lastmodified:
+          type: string
+          format: date-time
+          example: "2023-05-31T15:58:45.915080Z"
+        links:
+          type: array
+          items:
+            $ref: "#/components/schemas/Link"
+          example:
+            - { "rel": "self", "href": '{base}/masterdata/v1/{environment}/regime?id=FT' }
+    Statutes:
+      type: object
+      description: list of statute items
+      properties:
+        statutes:
+          type: array
+          items:
+            $ref: "#/components/schemas/Statute"
+          example:
+            - { "id": "LP", "name": "Losse Pool", "links": [{ "rel": "self", "href": "{base}/masterdata/v1/{environment}/statute?id=LP"}] }
+            - { "id": "TT", "name": "Time Table", "links": [{ "rel": "self", "href": "{base}/masterdata/v1/{environment}/statute?id=TT"}] }
+    Statute:
+      type: object
+      description: statute item
+      required:
+        - id
+      properties:
+        id:
+          description: statute id
+          type: string
+          maxLength: 10
+          nullable: false
+          example: "TT"
+        name:
+          description: statute name
+          type: string
+          maxLength: 50
+          example: "Time Table"
+        description:
+          description: statute description
+          type: string
+          example: null
+        isDefault:
+          description: default statute within environment
+          type: boolean
+          example: false
+        isActive:
+          type: boolean
+          example: true
+        created:
+          type: string
+          format: date-time
+          example: "2023-05-31T15:16:04.756268Z"
+        lastmodified:
+          type: string
+          format: date-time
+          example: "2023-06-22T17:21:58.727396Z"
+        links:
+          type: array
+          items:
+            $ref: "#/components/schemas/Link"
+          example:
+            - { "rel": "self", "href": '{base}/masterdata/v1/{environment}/statute?id=TT' }
+    Categories:
+      type: object
+      description: list of category items
+      properties:
+        categories:
+          type: array
+          items:
+            $ref: "#/components/schemas/Category"
+          example:
+            - { "id": "0010", "name": "Rang A", "links": [{ "rel": "self", "href": "{base}/masterdata/v1/{environment}/category?id=0010"}] }
+            - { "id": "0011", "name": "Rang B", "links": [{ "rel": "self", "href": "{base}/masterdata/v1/{environment}/category?id=0011"}] }
+    Category:
+      type: object
+      description: category item
+      required:
+        - id
+      properties:
+        id:
+          description: category id
+          type: string
+          minLength: 4
+          maxLength: 4
+          nullable: false
+          example: "0010"
+        name:
+          description: category name
+          type: string
+          maxLength: 50
+          example: "Rang A"
+        description:
+          description: category description
+          type: string
+          example: null
+        isDefault:
+          description: default category within environment
+          type: boolean
+          example: false
+        isActive:
+          type: boolean
+          example: true
+        created:
+          type: string
+          format: date-time
+          example: "2023-05-31T15:39:45.348843Z"
+        lastmodified:
+          type: string
+          format: date-time
+          example: "2023-05-31T15:39:45.348843Z"
+        links:
+          type: array
+          items:
+            $ref: "#/components/schemas/Link"
+          example:
+            - { "rel": "self", "href": '{base}/masterdata/v1/{environment}/category?id=TT' }
+    MasterFunctions:
+      type: object
+      description: list of master function items
+      properties:
+        masterfunctions:
+          type: array
+          items:
+            $ref: "#/components/schemas/MasterFunction"
+          example:
+            - { "id": "01", "name": "Alle Werk", "links": [{ "rel": "self", "href": "{base}/masterdata/v1/{environment}/masterfunction?id=01"}] }
+            - { "id": "11", "name": "Jumbobediener", "links": [{ "rel": "self", "href": "{base}/masterdata/v1/{environment}/masterfunction?id=11"}] }
+    MasterFunction:
+      type: object
+      description: master function item
+      required:
+        - id
+      properties:
+        id:
+          description: master function id
+          type: string
+          minLength: 2
+          maxLength: 2
+          nullable: false
+          example: "01"
+        name:
+          description: master function name
+          type: string
+          maxLength: 50
+          example: "Alle Werk"
+        description:
+          description: master function description
+          type: string
+          example: null
+        startDate:
+          description: master function start date
+          type: string
+          format: date
+          example: "1995-09-04"
+        endDate:
+          description: master function end date
+          type: string
+          format: date
+          example: "2021-12-31"
+        isTraining:
+          description: master function requires training
+          type: boolean
+          example: false
+        isDefault:
+          description: default master function within environment
+          type: boolean
+          example: false
+        isActive:
+          type: boolean
+          example: true
+        created:
+          type: string
+          format: date-time
+          example: "2023-05-31T16:45:09.915593Z"
+        lastmodified:
+          type: string
+          format: date-time
+          example: "2023-05-31T17:03:22.188529Z"
+        links:
+          type: array
+          items:
+            $ref: "#/components/schemas/Link"
+          example:
+            - { "rel": "self", "href": '{base}/masterdata/v1/{environment}/masterfunction?id=TT' }
+    Functions:
+      type: object
+      description: list of function items
+      properties:
+        functions:
+          type: array
+          items:
+            $ref: "#/components/schemas/Function"
+          example:
+            - { "id": "FM", "name": "Foreman", "links": [{ "rel": "self", "href": "{base}/personnel/v1/{environment}/function?id=FM"}] }
+            - { "id": "HCH", "name": "Heftruckchauffeur", "links": [{ "rel": "self", "href": "{base}/personnel/v1/{environment}/function?id=HCH"}] }
+    Function:
+      type: object
+      description: function item
+      required:
+        - id
+      properties:
+        id:
+          description: function id
+          type: string
+          maxLength: 10
+          nullable: false
+          example: 'FM'
+        name:
+          description: function name
+          type: string
+          maxLength: 50
+          example: 'Foreman'
+        description:
+          description: function description
+          type: string
+          example: null
+        masterfunction:
+          description: master function item
+          allOf:
+            - $ref: '#/components/schemas/MasterFunction'
+        isDefault:
+          description: default function within environment
+          type: boolean
+          example: false
+        isActive:
+          type: boolean
+          example: true
+        created:
+          type: string
+          format: date-time
+          example: '2023-05-31T16:45:09.915593Z'
+        lastmodified:
+          type: string
+          format: date-time
+          example: '2023-05-31T17:03:22.188529Z'
+        links:
+          type: array
+          items:
+            $ref: "#/components/schemas/Link"
+          example:
+            - { "rel": "self", "href": '{base}/personnel/v1/{environment}/function?id=FM' }
+    Exemption:
+      type: object
+      description: exemption item
+      required:
+        - id
+        - startDate
+      properties:
+        id:
+          description: exemption id
+          type: string
+          maxLength: 10
+          nullable: false
+          example: 'A'
+        name:
+          description: exemption name
+          type: string
+          maxLength: 50
+          example: 'Lashing Autobehandeling'
+        startDate:
+          description: exemption start date
+          type: string
+          format: date
+          nullable: false
+          example: "2022-10-01"
+        endDate:
+          description: exemption end date
+          type: string
+          format: date
+          example: "2023-12-31"
+    AlfaPass:
+      type: object
+      description: alfa pass item
+      required:
+        - card
+      properties:
+        card:
+          description: card number
+          type: integer
+          nullable: false
+          example: 256305
+        expiryDate:
+          description: card expiration date
+          type: string
+          format: date
+          example: "2026-06-14"
+        version:
+          description: card version number
+          type: integer
+          example: 0
+    Counter:
+      type: object
+      description: holiday counters
+      required:
+        - id
+        - days
+      properties:
+        id:
+          description: counter id
+          type: string
+          maxLength: 10
+          nullable: false
+          example: 'BV'
+        name:
+          description: counter name
+          maxLength: 50
+          example: 'Betaald Verlof'
+        year:
+          description: counter year
+          type: integer
+          example: 2023
+        from:
+          description: use between from date
+          type: string
+          format: date
+          example: "2025-01-14"
+        until:
+          description: use between until date
+          type: string
+          format: date
+          example: "2025-07-14"
+        days:
+          description: number of days
+          type: integer
+          example: 20
+    Suspension:
+      type: object
+      description: suspension item
+      required:
+        - id
+        - startDate
+      properties:
+        id:
+          description: suspension id
+          type: integer
+          nullable: false
+          example: 912
+        name:
+          description: suspension name
+          type: string
+          maxLength: 50
+          example: 'HA - SCHORSING ALS VAKBONDSAFGEVAARDIGDE'
+        startDate:
+          description: suspension start date
+          type: string
+          format: date
+          nullable: false
+          example: "2017-03-26"
+        endDate:
+          description: suspension end date
+          type: string
+          format: date
+          example: null
+    Persons:
+      type: object
+      description: list of person items
+      properties:
+        persons:
+          type: array
+          items:
+            $ref: "#/components/schemas/Person"
+          example:
+            - { "id": "002308", "ctrl": "77", "name": "Yankee Doodle", "links": [{ "rel": "self", "href": "{base}/personnel/v1/{environment}/person?id=002308&ctrl=77"}] }
+            - { "id": "005496", "ctrl": "80", "name": "Jimmy Doodle", "links": [{ "rel": "self", "href": "{base}/personnel/v1/{environment}/person?id=005496&ctrl=80"}] }
+    Person:
+      type: object
+      description: person item
+      required:
+        - id
+        - ctrl
+      properties:
+        id:
+          description: workbook number
+          type: string
+          minLength: 6
+          maxLength: 6
+          nullable: false
+          example: "000352"
+        ctrl:
+          description: control digit (modulo 97)
+          type: string
+          minLength: 2
+          maxLength: 2
+          nullable: false
+          example: "61"
+        name:
+          type: string
+          maxLength: 50
+          example: "DOE JOHN"
+        personal:
+          type: object
+          properties:
+            SSN:
+              type: string
+              maxLength: 12
+              example: "069070514737"
+            birthDate:
+              type: string
+              format: date
+              example: "1983-12-18"
+            phone:
+              type: string
+              maxLength: 14
+              example: "+3250582312"
+            GSM:
+              type: string
+              maxLength: 14
+              example: "+32477331285"
+            drivingLicence:
+              type: string
+              maxLength: 5
+              example: "B"
+            ICE:
+              type: object
+              properties:
+                phone:
+                  type: string
+                  maxLength: 14
+                  example: "+32498331599"
+                name:
+                  type: string
+                  maxLength: 50
+                  example: "DOE JANE"
+            properties:
+              type: array
+              items:
+                type: object
+                properties:
+                  property:
+                    type: string
+                    maxLength: 50
+                    nullable: false
+                    example: "Phone 2"
+                  value:
+                    type: string
+                    maxLength: 255
+                    example: "+3250527389"
+              example:
+                - { "property": "Phone 2", "value": "+3250527389" }
+                - { "property": "Phone 3", "value": "+32475123088" }
+        address:
+          type: object
+          properties:
+            street:
+              type: string
+              maxLength: 50
+              example: "KASTEELSTRAAT"
+            streetNbr:
+              type: string
+              maxLength: 12
+              example: "13"
+            boxNbr:
+              type: string
+              maxLength: 12
+              example: "Bus 2"
+            zipCode:
+              type: string
+              maxLength: 8
+              example: "8310"
+            city:
+              type: string
+              maxLength: 35
+              example: "BRUGGE"
+            country:
+              type: string
+              maxLength: 35
+              example: "BELGIUM"
+        professional:
+          type: object
+          properties:
+            startDate:
+              type: string
+              format: date
+              example: "2011-05-01"
+            endDate:
+              type: string
+              format: date
+              example: null
+            statute:
+              allOf:
+                - $ref: "#/components/schemas/Statute"
+              example:
+                - { "id": "TT", "name": "Time Table" }
+            category:
+              allOf:
+                - $ref: '#/components/schemas/Category'
+              example:
+                - { "id": "0010", "name": "Rang A" }
+            regime:
+              allOf:
+                - $ref: '#/components/schemas/Regime'
+              example:
+                - { "id": "FT", "name": "Full Time" }
+            timeCredit:
+              type: string
+              maxLength: 3
+              example: "DTK"
+            alfaPasses:
+              type: array
+              items:
+                $ref: "#/components/schemas/AlfaPass"
+              example:
+                - { "card": 256305, "expiryDate": "2026-06-14", "version": 0 }
+            suspensions:
+              type: array
+              items:
+                $ref: "#/components/schemas/Suspension"
+              example:
+                - { "id": 912, "name": "HA - SCHORSING ALS VAKBONDSAFGEVAARDIGDE", "startDate": "2017-08-20" }
+            expiryDate:
+              type: string
+              format: date
+              example: "2024-01-31"
+            isTimeTable:
+              type: boolean
+              example: true
+            companyId:
+              type: integer
+              example: 500
+            hasClothingAllowance:
+              type: boolean
+              example: true
+            hasFixedAllowance:
+              type: boolean
+              example: true
+        masterfunctions:
+          type: array
+          items:
+            $ref: "#/components/schemas/MasterFunctions"
+          example:
+            - { "id": "01", "name": "Alle Werk", "startDate": "2001-05-01" }
+            - { "id": "22", "name": "Heftruck chauffeur -20T", "startDate": "2012-01-15", "endDate": "2021-01-14" }
+        functions:
+          type: array
+          items:
+            $ref: "#/components/schemas/Function"
+          example:
+            - { "id": "HCH", "name": "HCH Heftruckchauffeur" }
+        exemptions:
+          type: array
+          items:
+            $ref: "#/components/schemas/Exemption"
+          example:
+            - { "id": "A", "name": "Lashing Autobehandeling", "startDate": "2022-11-30", "endDate": "2023-11-29" }
+            - { "id": "B", "name": "Lashing Containerbehandeling", "startDate": "2022-11-30", "endDate": "2023-11-29" }
+        counters:
+          type: array
+          items:
+            $ref: "#/components/schemas/Counter"
+          example:
+            - { "id": "AV", "name": "Anciënniteitsverlof", "year": 2024, "days": 1 }
+            - { "id": "BV", "name": "Betaald Verlof", "year": 2023, "days": 3 }
+            - { "id": "BV", "name": "Betaald Verlof", "year": 2024, "days": 20 }
+            - { "id": "HV", "name": "Herverdelingsverlof", "days": 8 }
+            - { "id": "PA", "name": "Vaderschapsverlof", "from": "2025-01-13", "until": "2025-05-12", "days": 12 }
+        isActive:
+          type: boolean
+          example: true
+        created:
+          type: string
+          format: date-time
+          example: "2023-05-31T16:29:26.881874Z"
+        lastmodified:
+          type: string
+          format: date-time
+          example: "2023-05-31T16:29:26.881874Z"
+        links:
+          type: array
+          items:
+            $ref: "#/components/schemas/Link"
+          example:
+            - { "rel": "self", "href": "{base}/personnel/v1/{environment}/person?id=000352&ctrl=61" }
+    SalaryGroups:
+      type: object
+      description: list of salary group items
+      properties:
+        salarygroups:
+          type: array
+          items:
+            $ref: "#/components/schemas/SalaryGroup"
+          example:
+            - { "id": 1, "name": "Havenarbeider Alle Werk", "links": [{ "rel": "self", "href": "{base}/salary/v1/{environment}/group?id=HA1"}] }
+            - { "id": 2, "name": "Foreman", "links": [{ "rel": "self", "href": "{base}/salary/v1/{environment}/group?id=HA2"}] }
+    SalaryGroup:
+      type: object
+      description: salary group item
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+          nullable: false
+          example: 2
+        name:
+          type: string
+          maxLength: 50
+          example: "Foreman"
+        description:
+          type: string
+          example: null
+        isActive:
+          type: boolean
+          example: true
+        created:
+          type: string
+          format: date-time
+          example: "2023-06-02T16:02:21.059090Z"
+        lastmodified:
+          type: string
+          format: date-time
+          example: "2023-06-02T16:02:21.059090Z"
+        links:
+          type: array
+          items:
+            $ref: "#/components/schemas/Link"
+          example:
+            - { "rel": "self", "href": "{base}/salary/v1/{environment}/group?id=2" }
+    Baremas:
+      type: object
+      description: list of barema items
+      properties:
+        baremas:
+          type: array
+          items:
+            $ref: "#/components/schemas/Barema"
+          example:
+            - { "id": "FS", "name": "Volle Shift", "links": [{ "rel": "self", "href": "{base}/salary/v1/{environment}/barema?id=FS"}] }
+            - { "id": "HS", "name": "Halve Shift", "links": [{ "rel": "self", "href": "{base}/salary/v1/{environment}/barema?id=HS"}] }
+    Barema:
+      type: object
+      description: barema item
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          maxLength: 4
+          nullable: false
+          example: "FS"
+        name:
+          type: string
+          maxLength: 50
+          example: "Volle Shift"
+        description:
+          type: string
+          example: null
+        isActive:
+          type: boolean
+          example: true
+        created:
+          type: string
+          format: date-time
+          example: "2023-06-02T16:09:41.181188Z"
+        lastmodified:
+          type: string
+          format: date-time
+          example: "2023-06-02T16:09:41.181188Z"
+        links:
+          type: array
+          items:
+            $ref: "#/components/schemas/Link"
+          example:
+            - { "rel": "self", "href": "{base}/salary/v1/{environment}/barema?id=FS" }
+            - { "rel": "rates", "href": "{base}/salary/v1/{environment}/barema/FS/rates?requesttimestamp=2023-07-01T08:00:00Z" }
+    BaremaRates:
+      type: object
+      properties:
+        id:
+          type: string
+          maxLength: 4
+          nullable: false
+          example: "FS"
+        name:
+          type: string
+          maxLength: 50
+          example: "Volle Shift"
+        requesttimestamp:
+          type: string
+          format: date-time
+          example: "2023-01-01T00:00:00.000000Z"
+        rates:
+          type: array
+          items:
+            type: object
+            properties:
+              baremaId:
+                type: string
+                maxLength: 4
+                nullable: false
+                example: "FS"
+              groupId:
+                type: integer
+                nullable: false
+                example: 1
+              dayId:
+                type: integer
+                minimum: 1
+                maximum: 7
+                nullable: false
+                example: 1
+              shiftCode:
+                type: string
+                maxLength: 1
+                nullable: false
+                example: "A"
+              startTimestamp:
+                type: string
+                format: datetime
+                nullable: false
+                example: "2022-11-07T03:00:00.000000Z"
+              value:
+                type: number
+                multipleOf: 0.01
+                example: 161.18
+    Unavailabilities:
+      type: object
+      description: list of unavailability items
+      properties:
+        unavailabilities:
+          type: array
+          items:
+            $ref: "#/components/schemas/Unavailability"
+          example:
+            - { "id": 280317, "person": { "id": "001180", "ctrl": "16", "name": "HAEYAERT FRANKY" }, "unavailability": { "id": "BV", "name": "Betaald Verlof"}, "start": "2025-02-16T23:00:00.000000Z", "end": "2025-02-17T23:00:00.000000Z", "days": 1, "isActive": true, "created": "2025-01-20T11:24:20.429201Z", "lastmodified": "2025-01-20T11:24:20.429201Z" }
+            - { "id": 280326, "person": { "id": "001180", "ctrl": "16", "name": "HAEYAERT FRANKY" }, "unavailability": { "id": "HV", "name": "Herverdelingsverlof"}, "start": "2025-02-17T23:00:00.000000Z", "end": "2025-02-18T23:00:00.000000Z", "days": 1, "isActive": true, "created": "2025-01-20T11:24:20.429197Z", "lastmodified": "2025-01-20T11:24:20.429197Z" }
+    Unavailability:
+      type: object
+      description: unavailability item
+      required:
+        - id
+        - person
+        - unavailability
+        - start
+        - end
+      properties:
+        id:
+          description: unique unavailability reference
+          type: integer
+          format: int64
+          nullable: false
+          example: 280326
+        person:
+          $ref: "#/components/schemas/Person"
+        unavailability:
+          type: object
+          required:
+            - id
+          properties:
+            id:
+              description: unavailability id
+              type: string
+              maxLength: 10
+              nullable: false
+              example: "BV"
+            name:
+              description: unavailability name
+              type: string
+              maxLength: 50
+              example: "Betaald Verlof"
+        start:
+          description: unavailability start timestamp
+          type: string
+          format: date-time
+          nullable: false
+          example: "2025-01-22T23:00:00.000000Z"
+        end:
+          description: unavailability end timestamp
+          type: string
+          format: date-time
+          nullable: false
+          example: "2025-01-23T23:00:00.000000Z"
+        days:
+          description: working day count
+          type: integer
+          format: int64
+          nullable: false
+          example: 1
+        isActive:
+          description: active flag
+          type: boolean
+          example: true
+        created:
+          type: string
+          format: date-time
+          example: "2025-01-10T16:29:26.881874Z"
+        lastmodified:
+          type: string
+          format: date-time
+          example: "2025-01-10T16:29:26.881874Z"
+    Trainings:
+      type: object
+      description: list of training items
+      properties:
+        trainings:
+          type: array
+          items:
+            $ref: "#/components/schemas/Training"
+          example:
+            - { "id": 8341, "person": { "id": "003655", "ctrl": "66", "name": "BURSENS MICHAEL" }, "training": { "id": "1384", "name": "EHBO NIJVERHEIDSHELPER - HEROPFRISSING"}, "start": "2023-01-09", "end": "2023-01-09", "isActive": true, "created": "2025-01-20T11:24:20.429201Z", "lastmodified": "2025-01-20T11:24:20.429201Z" }
+            - { "id": 8342, "person": { "id": "003655", "ctrl": "66", "name": "BURSENS MICHAEL" }, "training": { "id": "1303", "name": "ANDERE"}, "start": "2022-11-16", "end": "2022-11-16", "isActive": true, "created": "2025-01-20T11:24:20.429197Z", "lastmodified": "2025-01-20T11:24:20.429197Z" }
+    Training:
+      type: object
+      description: training item
+      required:
+        - id
+        - person
+        - training
+        - start
+        - end
+      properties:
+        id:
+          description: unique training session reference
+          type: integer
+          format: int64
+          nullable: false
+          example: 189639
+        person:
+          $ref: "#/components/schemas/Person"
+        training:
+          type: object
+          required:
+            - id
+          properties:
+            id:
+              description: training id
+              type: string
+              maxLength: 10
+              nullable: false
+              example: "13108"
+            name:
+              description: training name
+              type: string
+              maxLength: 50
+              example: "HOOGWERKER - PRAKTIJKTEST"
+        start:
+          description: training session start date
+          type: string
+          format: date
+          nullable: false
+          example: "2024-02-22"
+        end:
+          description: training session end date
+          type: string
+          format: date
+          nullable: false
+          example: "2024-02-22"
+        isActive:
+          description: active flag
+          type: boolean
+          example: true
+        created:
+          type: string
+          format: date-time
+          example: "2025-01-10T16:29:26.881874Z"
+        lastmodified:
+          type: string
+          format: date-time
+          example: "2025-01-10T16:29:26.881874Z"
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          maxLength: 25
+          nullable: false
+          example: "uri"
+        href:
+          type: string
+          example: "www.cewez.be"
+    Error:
+      type: object
+      properties:
+        errorCode:
+          description: error code
+          type: string
+          maxLength: 50
+          example: "911"
+        errorMessage:
+          description: error message
+          type: string
+          maxLength: 2000
+          example: "Seems like you hit a pothole in the road."
+  examples:
+    MissingParameter:
+      summary: Missing Parameter
+      value:
+        errorCode: "PARAMETER.MISSING"
+        errorMessage: "A required input parameter is missing in your request. Please consult the web service documentation."
+    InvalidParameter:
+      summary: Invalid Parameter
+      value:
+        errorCode: "PARAMETER.INVALID"
+        errorMessage: "The value for a passed-in parameter is invalid. Please consult the web service documentation."
+    MissingData:
+      summary: Missing Data
+      value:
+        errorCode: "NO.DATA.FOUND"
+        errorMessage: "No data was found for your selection. Please try again with another selection."
+    ApplicationError:
+      summary: Application Error
+      value:
+        errorCode: "911"
+        errorMessage: "Seems like you hit a pothole on your journey."
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - type: array
+                items:
+                  $ref: "#/components/schemas/Error"
+              - $ref: "#/components/schemas/Error"
+          examples:
+            MissingParameter:
+              $ref: "#/components/examples/MissingParameter"
+            InvalidParameter:
+              $ref: "#/components/examples/InvalidParameter"
+            MissingData:
+              $ref: "#/components/examples/MissingData"
+    Unauthorized:
+      description: Unauthorized
+    InternalError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          examples:
+            ApplicationError:
+              $ref: "#/components/examples/ApplicationError"
